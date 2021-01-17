@@ -1,7 +1,9 @@
 from flask import Flask
 app = Flask(__name__)
 
+# 可以針對同一個function設置不同的route
 @app.route("/")
+@app.route("/home")
 def home():
     return "<h1>Home Page</h1>"
 
