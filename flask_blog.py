@@ -1,11 +1,16 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 # 可以針對同一個function設置不同的route
 @app.route("/")
 @app.route("/home")
 def home():
-    return "<h1>Home Page</h1>"
+    # 會直接去找templates資料夾底下的檔案
+    return render_template('home.html')
+
+@app.route("/about")
+def about():
+    return "<h1>About Page</h1>"
 
 # 下面這個condition為true的情況為，直接執行這個py檔
 if __name__ == '__main__':
