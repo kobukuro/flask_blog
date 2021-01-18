@@ -25,7 +25,7 @@ def home():
 
 @app.route("/about")
 def about():
-    return "<h1>About Page</h1>"
+    return render_template('about.html', title='About')
 
 # 下面這個condition為true的情況為，直接執行這個py檔
 if __name__ == '__main__':
