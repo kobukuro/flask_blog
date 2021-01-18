@@ -1,19 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% if title %}
-        <title>Flask Blog - {{ title }}</title>
-    {% else %}
-        <title>Flask Blog</title>
-    {% endif %}
-</head>
-<body>
+{% extends 'layout.html' %}
+{% block content %}
     <h1>Home Page</h1>
     {% for post in posts %}
         <h1>{{ post.title }}</h1>
         <p>by {{ post.author }} at {{ post.date_posted }}</p>
         <p>{{ post.content }}</p>
     {% endfor %}
-</body>
-</html>
+{#  endblock 後面加上block名稱，可以用作區別  #}
+{% endblock content %}
