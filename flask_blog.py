@@ -40,6 +40,7 @@ def about():
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegistrationForm()
+    # 要加上下面這行才會去validate每個欄位
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('home'))
