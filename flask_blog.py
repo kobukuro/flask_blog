@@ -54,6 +54,8 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         else:
+            # flash的第二個參數(category)用success或danger的用意是搭配Bootstrap的class命名(會套用不同顏色)
+            # https://getbootstrap.com/docs/4.0/components/alerts/
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
