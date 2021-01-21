@@ -2,6 +2,7 @@
 {% block content %}
     <div class="content-section">
         <form method="POST" action="">
+            <!--下面這行一定要加，不然flask_blog.py裡的form.validate_on_submit()會失敗-->
             {{ form.hidden_tag() }}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">Log In</legend>

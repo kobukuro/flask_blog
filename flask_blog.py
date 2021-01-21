@@ -75,6 +75,7 @@ def about():
 @app.route("/register", methods=['GET','POST'])
 def register():
     form = RegistrationForm()
+    # 要加上下面這行才會去validate每個欄位
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('home'))
@@ -88,6 +89,8 @@ def login():
             flash('You have been logged in!', 'success')
             return redirect(url_for('home'))
         else:
+            # flash的第二個參數(category)用success或danger的用意是搭配Bootstrap的class命名(會套用不同顏色)
+            # https://getbootstrap.com/docs/4.0/components/alerts/
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
