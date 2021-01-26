@@ -1,7 +1,15 @@
 from datetime import datetime
-from flaskblog import db
+from flaskblog import db, login_manager
+from flask_login import UserMixin
 
-class User(db.Model):
+# this is for reloading the user from the user id stored in the session
+# 讓login_manager知道怎麼找user
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+# 繼承UserMixin讓User model能有一些該有的欄位以及方法(flask_login需要)
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
