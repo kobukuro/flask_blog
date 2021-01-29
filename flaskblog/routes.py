@@ -1,8 +1,8 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm
 from flaskblog.models import User, Post
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 
 posts = [
             {
@@ -51,10 +51,22 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            # 使用get function，找不到會回傳None
+            next_page = request.args.get('next')
             flash('You have been logged in!', 'success')
-            return redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             # flash的第二個參數(category)用success或danger的用意是搭配Bootstrap的class命名(會套用不同顏色)
             # https://getbootstrap.com/docs/4.0/components/alerts/
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+
+@app.route("/account")
+@login_required
+def account():
+    return render_template('account.html', title='Account')

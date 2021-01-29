@@ -18,5 +18,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
+# 告訴login_manager login function
+login_manager.login_view = 'login'
+# 設定login message的category(為了去套用bootstrap相對應樣式)
+login_manager.login_message_category = 'info'
 
 from flaskblog import routes
